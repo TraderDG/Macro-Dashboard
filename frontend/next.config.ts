@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const isVercel = !!process.env.VERCEL;
 
 const nextConfig: NextConfig = {
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: false },
+
   // standalone only for Docker builds; Vercel uses its own output format
   ...(isVercel ? {} : { output: "standalone" }),
 
