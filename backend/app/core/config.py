@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 from functools import lru_cache
 
 
@@ -18,6 +19,22 @@ class Settings(BaseSettings):
     FRED_API_KEY: str = ""
     ALPHA_VANTAGE_KEY: str = ""
     GNEWS_API_KEY: str = ""
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def ensure_async_driver(cls, v: str) -> str:
+        # Railway / Render provide plain postgresql:// — add asyncpg driver
+        if v and v.startswith("postgresql://"):
+            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return v
+
+    @field_validator("DATABASE_URL_SYNC", mode="before")
+    @classmethod
+    def ensure_sync_driver(cls, v: str) -> str:
+        # Strip async driver for sync (psycopg2) operations
+        return v.replace("postgresql+asyncpg://", "postgresql://").replace(
+            "postgresql+psycopg2://", "postgresql://"
+        )
 
     @property
     def cors_origins_list(self) -> list[str]:
