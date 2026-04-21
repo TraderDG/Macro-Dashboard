@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
+const isCI = !!(process.env.VERCEL || process.env.NETLIFY || process.env.CI);
+
 const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: false },
-
-  output: process.env.VERCEL ? "export" : "standalone",
+  output: isCI ? "export" : "standalone",
   images: { unoptimized: true },
 
-  // rewrites not supported with static export; frontend calls Railway directly via NEXT_PUBLIC_API_URL
-  ...( !process.env.VERCEL && {
+  ...(!isCI && {
     async rewrites() {
       const backendUrl =
         process.env.BACKEND_INTERNAL_URL ||
