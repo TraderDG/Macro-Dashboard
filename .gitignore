@@ -36,3 +36,4 @@ frontend/out/
 *.DS_Store
 backend_run.log
 frontend_run.log
+node_modules/
