@@ -1,0 +1,38 @@
+# Env — never commit secrets
+.env
+frontend/.env.local
+
+# Generated nginx config (created by deploy.sh)
+nginx/nginx.conf
+
+# Local SQLite DB
+backend/macro_local.db
+backend/backend_run.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+celerybeat-schedule
+celerybeat.pid
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Docker volumes (local)
+.data/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.DS_Store
+backend_run.log
+frontend_run.log
