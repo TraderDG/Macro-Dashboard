@@ -2,8 +2,14 @@
   "name": "macro-dashboard",
   "version": "1.0.0",
   "private": true,
+  "dependencies": {
+    "next": "^15.3.0"
+  },
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "dev": "cd frontend && npm run dev"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
